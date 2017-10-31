@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.react.activity.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/homePage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:clickable="true"
+        android:gravity="center"
+        android:src="@drawable/bottom_bar_homepage"
+        android:background="#F4F4F4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/daily"
+        />
+
+    <ImageView
+        android:id="@+id/daily"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:background="#F4F4F4"
+        android:src="@drawable/bottom_bar_daily"
+        app:layout_constraintBottom_toBottomOf="@id/homePage"
+        app:layout_constraintRight_toLeftOf="@+id/bookCase"
+        app:layout_constraintLeft_toRightOf="@id/homePage"
+        app:layout_constraintTop_toTopOf="@id/homePage" />
+
+    <ImageView
+        android:id="@+id/bookCase"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:background="#F4F4F4"
+        android:src="@drawable/bottom_bar_bookcase"
+        app:layout_constraintBottom_toBottomOf="@id/homePage"
+        app:layout_constraintRight_toLeftOf="@+id/me"
+        app:layout_constraintLeft_toRightOf="@id/daily"
+        app:layout_constraintTop_toTopOf="@id/homePage"  />
+
+    <ImageView
+        android:id="@+id/me"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:background="#F4F4F4"
+        android:src="@drawable/bottom_bar_me"
+        app:layout_constraintBottom_toBottomOf="@id/homePage"
+        app:layout_constraintLeft_toRightOf="@+id/bookCase"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/homePage" />
+
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:background="#D7D7D7"
+        app:layout_constraintBottom_toTopOf="@id/homePage"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/line"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>
