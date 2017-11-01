@@ -6,7 +6,6 @@
 
 import React, {Component} from 'react';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
@@ -24,6 +23,8 @@ import BaseComponent from './js/BaseComponent';
 import MovieItem from './js/MovieItem';
 
 
+let url = 'https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist1.txt'
+
 export default class App extends BaseComponent<{}> {
 
     constructor(props) {
@@ -35,8 +36,8 @@ export default class App extends BaseComponent<{}> {
         };
     }
 
+
     startRequest(updateLoadState) {
-        let url = 'https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist1.txt'
         var request = new XMLHttpRequest();
         request.onreadystatechange = (error) => {
             if (request.readyState !== 4) {
@@ -46,16 +47,29 @@ export default class App extends BaseComponent<{}> {
             let requestCode = request.status
             Toast.show(requestCode.toString(), Toast.SHORT);
 
-            updateLoadState(requestCode)
+            if (updateLoadState != null) {
+                updateLoadState(requestCode)
+            }
+
             if (requestCode === 200) {
                 let data = request.responseText
                 let banner = null ? null : JSON.parse(data).result.bannerModels
                 let movies = null ? null : JSON.parse(data).result.filmModels
-                this.setState({
-                    movies: movies,
-                    banner: banner,
-                    refreshing: false
-                });
+                if (this.state.isLoadMore) {
+                    movies = this.state.movies.concat(movies)
+                    this.setState({
+                        movies: movies,
+                        isLoadMore: false
+                    });
+                } else {
+                    this.setState({
+                        movies: movies,
+                        banner: banner,
+                        refreshing: false,
+                        isLoadMore: false
+                    });
+                }
+
             } else {
                 Toast.show(request.responseText, Toast.SHORT);
             }
@@ -71,7 +85,6 @@ export default class App extends BaseComponent<{}> {
 
 
     onRenderHeader = () => {
-
         var pages = [];
         let banners = this.state.banner
         let size = banners.length
@@ -85,6 +98,7 @@ export default class App extends BaseComponent<{}> {
                 </View>
             );
         }
+
 
         return <View>
             <ViewPagerAndroid
@@ -152,18 +166,19 @@ export default class App extends BaseComponent<{}> {
                 //注意此参数是一个比值而非像素单位。比如，0.5表示距离内容最底部的距离为当前列表可见长度的一半时触发。
                 onEndReachedThreshold={0.1}
                 //当列表被滚动到距离内容最底部不足onEndReachedThreshold的距离时调用
-                onEndReached={({distanceFromEnd}) => (
-                    setTimeout(() => {
-                        this.setState((state) => ({}));
-                    }, 3000)
-                )}
+                onEndReached={({distanceFromEnd}) => {
+                    this.setState({isLoadMore: true})
+                    url = 'https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist2.txt'
+                    this.startRequest(null)
+                }
+                }
+
                 refreshing={this.state.refreshing}
                 onRefresh={() => {
+                    url = 'https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist1.txt'
                     this.setState({refreshing: true})//开始刷新
                     //这里模拟请求网络，拿到数据，3s后停止刷新
-                    setTimeout(() => {
-                        this.setState({refreshing: false});
-                    }, 3000);
+                    this.startRequest(null)
                 }}
             />
         );
