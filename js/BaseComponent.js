@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
-import LoadingComponent from "./LoadingComponent.js"
-import LoadErrorComponent from "./LoadErrorComponent.js"
+import LoadingComponent from "./LoadingView.js"
+import LoadErrorComponent from "./LoadErrorView.js"
 
 export default class BaseComponent extends Component<{}> {
 

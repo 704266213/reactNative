@@ -21,7 +21,7 @@ const {width, height} = Dimensions.get('window');
 import Toast from './js/Toast';
 import BaseComponent from './js/BaseComponent';
 import MovieItem from './js/MovieItem';
-
+import LoadMoreView from './js/LoadMoreView'
 
 let url = 'https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist1.txt'
 
@@ -43,7 +43,6 @@ export default class App extends BaseComponent<{}> {
             if (request.readyState !== 4) {
                 return;
             }
-
             let requestCode = request.status
             Toast.show(requestCode.toString(), Toast.SHORT);
 
@@ -79,6 +78,14 @@ export default class App extends BaseComponent<{}> {
         request.send();
     }
 
+    onLoadMore = () => {
+        Toast.show("=============onLoadMore=======================", Toast.SHORT);
+        // updateLoadMoreState(-1)
+        url = 'https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist2.txt'
+        // this.refs.updateLoadMoreState(-1)
+        // this.startRequest()
+    }
+
     onButtonPress = () => {
         Toast.show("hello!! react native", Toast.SHORT);
     }
@@ -98,7 +105,6 @@ export default class App extends BaseComponent<{}> {
                 </View>
             );
         }
-
 
         return <View>
             <ViewPagerAndroid
@@ -140,6 +146,10 @@ export default class App extends BaseComponent<{}> {
         </View>;
     }
 
+    onRenderFooter = () => {
+        return <LoadMoreView onLoadMore={this.onLoadMore} />
+    }
+
     _separator = () => {
         return <View style={{height: 1, backgroundColor: 'red'}}/>;
     }
@@ -147,7 +157,7 @@ export default class App extends BaseComponent<{}> {
     _renderItem = (info: Object) => (
         <MovieItem
             info={info.item}
-            callBack={this}
+            callBack={this.onButtonPress()}
         />
     );
 
@@ -162,14 +172,14 @@ export default class App extends BaseComponent<{}> {
                 contentContainerStyle={[styles.flatListStyle, styles.container]}//设置cell的样式
                 ItemSeparatorComponent={this._separator}
                 ListHeaderComponent={this.onRenderHeader}//header头部组件
+                ListFooterComponent={this.onRenderFooter}
                 //决定当距离内容最底部还有多远时触发onEndReached回调。
                 //注意此参数是一个比值而非像素单位。比如，0.5表示距离内容最底部的距离为当前列表可见长度的一半时触发。
                 onEndReachedThreshold={0.1}
                 //当列表被滚动到距离内容最底部不足onEndReachedThreshold的距离时调用
                 onEndReached={({distanceFromEnd}) => {
                     this.setState({isLoadMore: true})
-                    url = 'https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist2.txt'
-                    this.startRequest(null)
+                    this.onLoadMore()
                 }
                 }
 

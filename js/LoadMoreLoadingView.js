@@ -1,17 +1,23 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ * @flow
+ */
+
 import React, {Component} from 'react';
 import {
     StyleSheet,
     Text,
     View,
-    ActivityIndicator
+    ActivityIndicator,
+    Dimensions
 } from 'react-native';
 
+const {width} = Dimensions.get('window');
 
-export default class LoadingComponent extends Component<{}> {
-
+export default class LoadMoreLoadingView extends Component<{}> {
 
     render() {
-
         return (<View style={styles.container}>
             <ActivityIndicator style={[styles.centering, styles.gray]}
                                color="#F52C94"
@@ -20,20 +26,23 @@ export default class LoadingComponent extends Component<{}> {
         </View>);
 
     }
-}
 
+}
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
+        height: 80,
+        width: width,
+        borderTopColor: 'red',
+        borderWidth: 1
     },
     loadText: {
         fontSize: 18,
         color: "#F52C94",
         textAlign: "center",
-        marginTop: 16
     },
     centering: {
         alignItems: 'center',

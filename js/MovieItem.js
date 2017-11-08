@@ -29,6 +29,7 @@ class MovieItem extends PureComponent {
 
     render() {
         let {info} = this.props
+      //  this.props.callBack();
         return (
             <View style={styles.container}>
 
