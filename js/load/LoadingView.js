@@ -4,13 +4,14 @@ import {
     Text,
     View,
     ActivityIndicator,
+    Dimensions
 } from 'react-native';
+
+const {height} = Dimensions.get('window');
 
 export default class LoadingView extends Component<{}> {
 
-
     render() {
-
         return (<View style={styles.container}>
             <ActivityIndicator style={[styles.centering, styles.gray]}
                                color="#F52C94"
@@ -24,7 +25,8 @@ export default class LoadingView extends Component<{}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: height / 4.5,
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },

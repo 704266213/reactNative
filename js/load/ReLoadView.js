@@ -3,9 +3,8 @@ import {
     StyleSheet,
     Text,
     View,
-    Image,
+    Dimensions,
     TouchableHighlight,
-    Dimensions
 } from 'react-native';
 
 // 组件的属性定义
@@ -18,9 +17,10 @@ import {
 //     onClickRefresh?: () => void
 // }
 
-const {width, height} = Dimensions.get('window');
 
 //export default class LoadErrorComponent extends Component<PropsDefine, {}> {
+
+const {height} = Dimensions.get('window');
 
 export default class ReLoadView extends Component<{}> {
 
@@ -53,11 +53,10 @@ export default class ReLoadView extends Component<{}> {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F2F2F2',
-        width: width,
-        height: height,
+        backgroundColor: '#F5FCFF',
+        justifyContent:'flex-start',
+        paddingTop: height / 4.5
     },
     errorTipsContainer: {
         justifyContent: 'center',
