@@ -56,6 +56,7 @@ export default class MainComponent extends Component<{}> {
     }
 
     render() {
+        console.log('========render=========onShowRenderView======================');
         return (
             <View style={styles.container}>
                 <View style={styles.toolbar}>

@@ -6,10 +6,12 @@ import MainComponent from './js/MainComponent';
 
 import ReduxDemo from './components/ReduxDemo';
 
+import ReduxTest from './components/ReduxTest';
+
 
 import RootTabs from './js/NavigatorDemo';
 
-AppRegistry.registerComponent('app', () => RootTabs);
+AppRegistry.registerComponent('app', () => HomePageFragment);
 
 AppRegistry.registerComponent('redux', () => ReduxDemo);
 
