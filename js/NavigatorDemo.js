@@ -4,10 +4,6 @@ import {StackNavigator, TabNavigator} from 'react-navigation';
 
 class HomeScreen extends Component<{}> {
 
-    static navigationOptions = {
-        title: 'Welcome',
-    };
-
     render() {
         const {navigate} = this.props.navigation;
         return <View>
@@ -21,9 +17,7 @@ class HomeScreen extends Component<{}> {
 }
 
 class ChatScreen extends Component<{}> {
-    static navigationOptions = ({navigation}) => ({
-        title: `Chat with ${navigation.state.params.user}`,
-    });
+
 
     render() {
         const {params} = this.props.navigation.state;
@@ -36,7 +30,6 @@ class ChatScreen extends Component<{}> {
 }
 
 class ProfileScreen extends Component<{}> {
-
 
     render() {
         return (
@@ -100,7 +93,7 @@ const RootTabs = TabNavigator({
         },
     }
     , {
-        animationEnabled: true, // 切换页面时不显示动画
+        animationEnabled: false, // 切换页面时不显示动画
         tabBarPosition: 'bottom', // 显示在底端，android 默认是显示在页面顶端的
         swipeEnabled: false, // 禁止左右滑动
         backBehavior: 'none', // 按 back 键是否跳转到第一个 Tab， none 为不跳转
@@ -109,6 +102,7 @@ const RootTabs = TabNavigator({
             inactiveTintColor: '#999', // 文字和图片默认颜色
             showIcon: true, // android 默认不显示 icon, 需要设置为 true 才会显示
             indicatorStyle: {height: 0}, // android 中TabBar下面会显示一条线，高度设为 0 后就不显示线了， 不知道还有没有其它方法隐藏？？？
+            scrollEnabled: false,
             style: {
                 backgroundColor: '#444', // TabBar 背景色
                 height: 50
@@ -214,7 +208,7 @@ export default NavigatorDemo;
 //
 // tabBarPosition：设置tabbar的位置，iOS默认在底部，安卓默认在顶部。（属性值：'top'，'bottom'）
 //
-//     swipeEnabled：是否允许在标签之间进行滑动
+// swipeEnabled：是否允许在标签之间进行滑动
 //
 // animationEnabled：是否在更改标签时显示动画
 //
@@ -250,9 +244,9 @@ export default NavigatorDemo;
 //
 // pressColor：material涟漪效果的颜色（安卓版本需要大于5.0）
 //
-//     pressOpacity：按压标签的透明度变化（安卓版本需要小于5.0）
+// pressOpacity：按压标签的透明度变化（安卓版本需要小于5.0）
 //
-//     scrollEnabled：是否启用可滚动选项卡 tabStyle：tab的样式
+// scrollEnabled：是否启用可滚动选项卡 tabStyle：tab的样式
 //
 // indicatorStyle：标签指示器的样式对象（选项卡底部的行）。安卓底部会多出一条线，可以将height设置为0来暂时解决这个问题
 //
