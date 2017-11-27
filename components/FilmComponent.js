@@ -6,34 +6,44 @@ import {
     Dimensions,
     TouchableHighlight,
 } from 'react-native';
-import {connect} from 'react-redux';
+import LoadingComponent from "./LoadingComponent.js"
+import {loading, loadingSuccess, loadingFail} from '../actions/LoadingAction';
+import axios from 'axios'
 
 
 const {height} = Dimensions.get('window');
 
-class FilmComponent extends Component<{}> {
+export default class FilmComponent extends Component<{}> {
 
     constructor(props) {
         super(props);
     }
 
-    render() {
-        const {navigate} = this.props.navigation;
-
-        return (<View style={styles.container}>
-            <View>
-                <Text style={styles.errorTips}>电影</Text>
-                <TouchableHighlight style={styles.onRefreshButton} onPress={() =>  navigate('FilmDetailComponent', {user: 'FilmDetailComponent'})}
-                                    activeOpacity={0.5}
-                                    underlayColor="rgb(210, 230,255)">
-                    <Text style={styles.onRefreshText}>跳转详情</Text>
-                </TouchableHighlight>
-            </View>
-
-        </View>);
-
+    componentDidMount() {
+        // this.startRequest()
     }
+
+
+
+    render() {
+        return (<View style={styles.container}>
+            <View style={styles.toolbar}>
+                <Text style={styles.title}>首页</Text>
+            </View>
+            <LoadingComponent ref="loadingComponent" onReLoad={this.onReLoad}
+                              onShowRenderView={this.onShowRenderView} startRequest = {this.startRequest}/>
+        </View>);
+    }
+
+    onShowRenderView() {
+        console.log('=================onShowRenderView======================');
+        return (<View style={styles.renderView}>
+            <Text style={styles.errorTips}>请求成功</Text>
+        </View>)
+    }
+
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -41,35 +51,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
         justifyContent: 'flex-start',
-        paddingTop: height / 4.5
+    },
+    toolbar: {
+        height: 50,
+        backgroundColor: "#0F9C00",
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row'
+    },
+    title: {
+        color: "#ffffff",
+        fontSize: 18,
+        textAlign: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
     },
     errorTips: {
         color: "#9E9E9E",
         fontSize: 20,
         textAlign: "center",
         marginTop: 5
-    },
-    onRefreshButton: {
-        backgroundColor: '#FFFFFF',
-        minHeight: 40,
-        minWidth: 160,
-        borderColor: '#F1F1F1',
-        borderWidth: 1,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 16
-    },
-    onRefreshText: {
-        color: "#F6369A",
-        textAlign: "center",
-        fontSize: 20
     }
 })
 
 
-const mapStateToProps = state => ({
-
-})
-
-export default connect(mapStateToProps)(FilmComponent);

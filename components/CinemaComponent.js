@@ -16,11 +16,18 @@ export default class CinemaComponent extends Component<{}> {
         super(props);
     }
 
+
     render() {
+        const {navigate} = this.props.navigation;
 
         return (<View style={styles.container}>
             <View>
-                <Text style={styles.errorTips}>影院</Text>
+                <Text style={styles.errorTips}>电影</Text>
+                <TouchableHighlight style={styles.onRefreshButton} onPress={() =>  navigate('FilmDetailComponent', {user: 'FilmDetailComponent'})}
+                                    activeOpacity={0.5}
+                                    underlayColor="rgb(210, 230,255)">
+                    <Text style={styles.onRefreshText}>跳转详情</Text>
+                </TouchableHighlight>
             </View>
 
         </View>);
@@ -41,5 +48,22 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: "center",
         marginTop: 5
+    },
+    onRefreshButton: {
+        backgroundColor: '#FFFFFF',
+        minHeight: 40,
+        minWidth: 160,
+        borderColor: '#F1F1F1',
+        borderWidth: 1,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 16
+    },
+    onRefreshText: {
+        color: "#F6369A",
+        textAlign: "center",
+        fontSize: 20
     }
 })
+

@@ -49,3 +49,4 @@ export default class LoadingViewComponent extends Component<{}> {
 
 
 }
+
