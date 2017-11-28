@@ -21,9 +21,9 @@ function counter(state = defaultState, action) {
     }
 }
 
-import loadState from '../reducers/LoadingReducer';
+import loadingReducer from '../reducers/LoadingReducer';
 
 export default combineReducers({
    // counter,
-    loadState
+    loadingReducer
 });

@@ -111,7 +111,7 @@ const RootMainTabs = TabNavigator({
 );
 
 
-const Launcher = StackNavigator({
+export default Launcher = StackNavigator({
     MainComponent: {
         screen: RootMainTabs,
         navigationOptions: {
@@ -138,8 +138,8 @@ const styles = StyleSheet.create({
 
 //export default Launcher;
 
-const mapStateToProps = state => ({
-    counter: state.counter
-})
-
-export default connect(mapStateToProps)(Launcher);
+// const mapStateToProps = state => ({
+//     counter: state.counter
+// })
+//
+// export default connect(mapStateToProps)(Launcher);

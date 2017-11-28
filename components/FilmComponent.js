@@ -20,17 +20,39 @@ export default class FilmComponent extends Component<{}> {
     }
 
     componentDidMount() {
-        // this.startRequest()
+       // this.startRequest()
     }
 
+    startRequest = (dispatch) => {
+        var selfDispatch = dispatch
+        selfDispatch(loading())
+        axios.get('https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist2.txt')
+            .then(function (response) {
+                console.log("=========loadingSuccess==============");
+                console.log("==========state==============" + response.data.state);
+                console.log("==========message==============" + response.data.message);
+                console.log("==========result==============" + response.data.result);
 
+               selfDispatch(loadingSuccess(response.data.result))
+                // console.log(response.data);
+                // console.log(response.status);
+                // console.log(response.statusText);
+                // console.log(response.headers);
+                // console.log(response.config);
+            })
+            .catch(function (error) {
+                console.log("=========error==============" + error);
+                selfDispatch(loadingFail())
+            });
+    }
 
     render() {
+        console.log('==========FilmComponent=========render=============')
         return (<View style={styles.container}>
             <View style={styles.toolbar}>
                 <Text style={styles.title}>首页</Text>
             </View>
-            <LoadingComponent ref="loadingComponent" onReLoad={this.onReLoad}
+            <LoadingComponent ref="loadingComponent"
                               onShowRenderView={this.onShowRenderView} startRequest = {this.startRequest}/>
         </View>);
     }

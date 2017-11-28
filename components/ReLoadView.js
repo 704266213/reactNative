@@ -17,7 +17,6 @@ export default class ReLoadView extends Component<{}> {
 
     render() {
         let onReLoad = this.props.onReLoad
-        let updateLoadState = this.props.updateLoadState
 
         return (<View style={styles.container}>
             <View>
@@ -26,7 +25,6 @@ export default class ReLoadView extends Component<{}> {
             </View>
             <TouchableHighlight style={styles.onRefreshButton} onPress={() => {
                 onReLoad();
-                updateLoadState(-1)
             }}
                                 activeOpacity={0.5}
                                 underlayColor="rgb(210, 230,255)">

@@ -19,7 +19,7 @@ export default class CinemaComponent extends Component<{}> {
 
     render() {
         const {navigate} = this.props.navigation;
-
+        console.log('==========CinemaComponent=========render=============')
         return (<View style={styles.container}>
             <View>
                 <Text style={styles.errorTips}>电影</Text>

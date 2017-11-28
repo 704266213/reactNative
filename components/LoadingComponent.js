@@ -15,17 +15,17 @@ class LoadingComponent extends Component<{}> {
     }
 
     componentDidMount() {
+        this.startRequest(this.props.dispatch)
         // this.props.startRequest(this.props.dispatch)
-        this.startRequest()
     }
+
 
     startRequest = () => {
         var dispatch = this.props.dispatch
-        this.props.dispatch(loading())
+        dispatch(loading())
         axios.get('https://raw.githubusercontent.com/704266213/data/master/WebContent/data/filmlist2.txt')
             .then(function (response) {
                 console.log("=========loadingSuccess==============");
-                console.log("=========dispatch==============" + dispatch);
                 console.log("==========state==============" + response.data.state);
                 console.log("==========message==============" + response.data.message);
                 console.log("==========result==============" + response.data.result);
@@ -39,21 +39,27 @@ class LoadingComponent extends Component<{}> {
             })
             .catch(function (error) {
                 console.log("=========error==============" + error);
-                dispatch.dispatch(loadingFailed())
+                dispatch(loadingFail())
             });
+    }
+
+    onReLoad = () => {
+        this.startRequest(this.props.dispatch)
+        // this.props.startRequest(this.props.dispatch)
     }
 
     render() {
         let loadState = this.props.loadState
         let onShowRenderView = this.props.onShowRenderView
-        let onReLoad = this.props.onReLoad
-        console.log('=================render=========LoadingComponent=============' + loadState)
+        console.log('==========LoadingComponent=========render=============' + loadState)
+
         if (loadState == -1) {
             return (<LoadingView/>)
         } else if (loadState == 200) {
+            console.log('==========LoadingComponent=========render=============' + this.props.result.toString())
             return onShowRenderView()
         } else {
-            return (<ReLoadView onReLoad={onReLoad}/>)
+            return (<ReLoadView onReLoad={this.onReLoad}/>)
         }
     }
 
@@ -61,15 +67,32 @@ class LoadingComponent extends Component<{}> {
      * 当props改变的时候调用
      */
     componentWillReceiveProps(props) {
-        console.log('=================componentWillReceiveProps======================' + props.toString());
+        // console.log('=================componentWillReceiveProps======================' + props.toString());
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        //防止重复渲染
+        return this.props.loadState !== nextProps.loadState || this.state !== nextState
     }
 
 
 }
 
-const mapStateToProps = state => ({
-    loadState: -1,
-    result: null
-})
 
-export default connect(mapStateToProps)(LoadingComponent);
+// 基于全局 state ，哪些是我们想注入的 props ?
+// 注意：使用 https://github.com/reactjs/reselect 效果更佳。
+function select(store) {
+    return {
+        loadState: store.loadingReducer.loadState,
+        result: store.loadingReducer.result
+    };
+}
+
+export default connect(select)(LoadingComponent);
+
+
+// const mapStateToProps = state => ({
+//     loadState: -1,
+//     result: null
+// })
+// export default connect(mapStateToProps)(LoadingComponent);

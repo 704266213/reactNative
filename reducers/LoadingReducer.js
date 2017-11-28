@@ -9,8 +9,6 @@ const initialState = {
 }
 
 export default function LoadState(state = initialState, action) {
-    console.log("=========LoadState========action======" + action.type);
-    console.log("=========LoadState========action======" + action.result);
     switch (action.type) {
         case types.Loading: // 开始请求
             return Object.assign({}, ...state, {
